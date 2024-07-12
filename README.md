@@ -16,20 +16,20 @@ GBox软件源管理系统
 7.  访问域名即可开始安装
 
 #Nginx伪静态
-location ~* (runtime|application)/{
-	return 403;
-}
-location / {
-	if (!-e $request_filename){
-		rewrite  ^(.*)$  /index.php?s=$1  last;   break;
+	location ~* (runtime|application)/{
+		return 403;
 	}
-}
+	location / {
+		if (!-e $request_filename){
+			rewrite  ^(.*)$  /index.php?s=$1  last;   break;
+		}
+	}
 
 #Apache伪静态
-<IfModule mod_rewrite.c>
-  Options +FollowSymlinks -Multiviews
-  RewriteEngine On
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteRule ^(.*)$ index.php?s=$1 [QSA,PT,L]
-</IfModule>
+	<IfModule mod_rewrite.c>
+	  Options +FollowSymlinks -Multiviews
+	  RewriteEngine On
+	  RewriteCond %{REQUEST_FILENAME} !-d
+	  RewriteCond %{REQUEST_FILENAME} !-f
+	  RewriteRule ^(.*)$ index.php?s=$1 [QSA,PT,L]
+	</IfModule>
